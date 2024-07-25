@@ -1,0 +1,106 @@
+
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Header */
+header {
+  background: rgba(129, 167, 163, 0.158); /* Fondo del header con transparencia */
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  z-index: 1000; 
+  /* Asegurar que el header esté siempre visible */
+}
+
+.logo-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.logo-wrapper img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Navigation Bar */
+.navigation-bar {
+  background-color: rgba(40, 44, 52, 0.9);
+  padding: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  justify-content: center;    /*  centrar contenido dentro de la barra */
+}
+
+.navigation-bar ul {
+  list-style: none;
+  display: flex;
+  gap: 15px; /* Ajustar el espaciado entre enlaces */
+  padding: 0;
+  margin: 0;
+ /* Centra los enlaces horizontalmente */
+}
+.navigation-bar ul li a {
+  color: rgb(237, 235, 240);
+  text-decoration: none;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
+}
+
+.navigation-bar ul li a:hover {
+  background-color: #3baccb;
+
+}
+
+
+
+
+/* Footer */
+footer {
+  background: rgba(40, 44, 52, 0.9);
+  color: rgb(177, 237, 12);
+  text-align: center;
+  padding: 20px;
+}
+
+footer .logo {
+  width: 50px;
+  margin-bottom: 5px;
+  margin: 0 auto;
+}
+
+
+
+.scrolling-text {
+  display: inline-block; /* Rota el texto 90 grados y lo mueve hacia arriba */
+  writing-mode: horizontal-tb; /* Establece el modo de escritura vertical */
+  color: black; /* Color del texto a negro */
+  animation: scroll 10s linear infinite; 
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.help-button {
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+

@@ -1,0 +1,8 @@
+.main-container {
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+  
+ 

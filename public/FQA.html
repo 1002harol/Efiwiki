@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resolución de problemas</title> 
+  <link rel="stylesheet" href="../src/styles/FQA.css"> 
+</head> 
+<body>
+  <h1>FQA</h1>
+
+  <div>
+    <input type="text" id="searchBar" placeholder="Buscar por aplicativo..." oninput="searchApplications()">
+  </div>
+
+  <button id="addNewProblemButton">+</button>
+
+  
+  <div class="modal-overlay" id="faqModal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Nuevo Problema</h2>
+        <span class="modal-close-button" onclick="closeModal()">X</span>
+      </div>
+      <div class="modal-body">
+        <div class="modal-content-inner">
+          <div class="form-container">
+            <form id="react-problem-form">
+              <label for="newApp">Nombre aplicativo:</label>
+              <input type="text" id="newApp" name="app" required>
+
+              <label for="newProblemDescription">Descripción del Problema:</label>
+              <textarea id="newProblemDescription" name="description" required></textarea>
+              
+              <label for="newSolution">Solución:</label>
+              <textarea id="newSolution" name="solution" required></textarea>
+            
+              <button type="submit">Guardar Problema</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+  
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion" id="problemsAccordion"></div>
+
+  <script> 
+    const addNewProblemButton = document.getElementById('addNewProblemButton');
+    const problemForm = document.getElementById('faqModal');
+
+    addNewProblemButton.addEventListener('click', () => {
+      problemForm.style.display = problemForm.style.display === 'none' ? 'flex' : 'none';
+    });
+
+    function closeModal() {
+      problemForm.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
