@@ -1,40 +1,82 @@
-import React, { useState } from 'react';
-import './styles/Maincontent.css'
+import React, { useState, useEffect } from 'react';
+import './stylesP/MainContent.css';
+import { FaBook, FaHeadphones, FaCommentAlt } from 'react-icons/fa';
 
-const Maincontent = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleOpenModal = () => {
-      setIsModalOpen(true);
-    };
-  
-    const handleCloseModal = () => {
-      setIsModalOpen(false);
-    };
-  
-    return (
-      <main className="main-container">
-        <p className="scrolling-text">
-          Bienvenido a  EFIWIKI, una herramienta para la manipúlacion de errores.
-          <button onClick={handleOpenModal} className="help-button">Ayuda</button>
-        </p>
-        {isModalOpen && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close-button" onClick={handleCloseModal}>&times;</span>
-              <h2>Acerca de Efiwiki</h2>
-              <ul>
-                <li>Manual de uso : Es un documento de comunicación técnica destinado a dar asistencia para el uso de aplicativos</li>
-                <li>FAQ: Es un listado de problemas y soluciones mas comunes de los aplicativos</li>
-                <li>Comunicados: Aqui encontraras  diapositivas infomativas acerca de los Proyectos que se lanzan por mes</li>
-                <li>Desarrollador: Aprendiz(Sena) harol steven   para efigas.</li>
-                <li>Version: 1.01.</li>
-              </ul>
-            </div>
-          </div>
-        )}
-      </main>
-    );
+const MainContent = ({ openModal }) => {
+  const [hoveredButton, setHoveredButton] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+  // const [notificationHistory, setNotificationHistory] = useState([]);
+  // const { user } = useAuth();
+
+  useEffect(() => {
+    let timer;
+    if (hoveredButton) {
+      timer = setTimeout(() => {
+        setShowTooltip(true);
+      }, 1000); // 1 segundo
+    } else {
+      setShowTooltip(false);
+    }
+    return () => clearTimeout(timer);
+  }, [hoveredButton]);
+
+  const handleMouseEnter = (buttonName) => {
+    setHoveredButton(buttonName);
   };
 
-  export default Maincontent;
+  const handleMouseLeave = () => {
+    setHoveredButton(null);
+  };
+
+  
+
+  const tooltipContent = {
+    Manuales: 'PDFs de Manuales de uso CORS',
+    FQA: 'Problemas frecuentes de los aplicativos',
+    Comunicados: 'Subida y visualización de Comunicados',
+  };
+
+  return (
+    <div className="main-content">
+      <div className="main-buttons">
+          <button 
+            className='Manual-button'
+            onClick={() => openModal('Manuales')}
+            onMouseEnter={() => handleMouseEnter('Manuales')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <FaBook />
+            {showTooltip && hoveredButton === 'Manuales' && (
+              <div className="tooltip">{tooltipContent.Manuales}</div>
+            )}
+          </button>
+          <button 
+            className='FQA-button'
+            onClick={() => openModal('FQA')}
+            onMouseEnter={() => handleMouseEnter('FQA')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <FaHeadphones />
+            {showTooltip && hoveredButton === 'FQA' && (
+              <div className="tooltip">{tooltipContent.FQA}</div>
+            )}
+          </button>
+          <button 
+             className='Comunicados-button'
+            onClick={() => openModal('Comunicados')}
+            onMouseEnter={() => handleMouseEnter('Comunicados')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <FaCommentAlt />
+            {showTooltip && hoveredButton === 'Comunicados' && (
+              <div className="tooltip">{tooltipContent.Comunicados}</div>
+            )}
+          </button>
+        </div>
+
+      </div>
+  );
+};
+
+export default MainContent;

@@ -1,31 +1,26 @@
-import React ,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import '../Manuales/ManualesModal.css';
+import '../Manuales/stylesM/Manuales.css';
 
 Modal.setAppElement('#root');
 
-const searchManuals = (searchQuery,manuals) => {
-
-  // Recorrer todos los manuales y mostrar/ocultar según corresponda
-  for (let i = 0; i < manuals.length; i++) {
-      let title = manuals[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
-      if (title.includes(searchQuery.toLowerCase())) {
-          manuals[i].style.display = 'block'; // Mostrar manual si coincide
-      } else {
-          manuals[i].style.display = 'none'; // Ocultar manual si no coincide
-      }
-  }
-}
-
-const Manuales = ({ isOpen, onClose, }) => {
-  const [htmlContent,setHtmlContent]= useState('');
-
+const Manuales = ({ isOpen, onClose }) => {
+  const [htmlContent, setHtmlContent] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (isOpen) {
-      fetch('./Manuales.html')  // Ruta a tu archivo Manuales.html
+      setIsLoading(true);
+      fetch('./Manuales.html')
         .then(response => response.text())
-        .then(data => setHtmlContent(data));
+        .then(data => {
+          setHtmlContent(data);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching the manuals:', error);
+          setIsLoading(false);
+        });
     }
   }, [isOpen]);
 
@@ -41,17 +36,45 @@ const Manuales = ({ isOpen, onClose, }) => {
     }
   }, [htmlContent]);
 
+  const searchManuals = (searchQuery, manuals) => {
+    for (let i = 0; i < manuals.length; i++) {
+      let title = manuals[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
+      if (title.includes(searchQuery.toLowerCase())) {
+        manuals[i].style.display = 'block';
+      } else {
+        manuals[i].style.display = 'none';
+      }
+    }
+  };
+
+  const handlePdfClick = (event) => {
+    if (event.target.tagName === 'A' && event.target.href.endsWith('.pdf')) {
+      event.preventDefault();
+      window.open(event.target.href, '_blank');
+    }
+  };
+
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Visualizador de Documentos"
-      className="modal"
-      overlayClassName="overlay"
+      className="manuales-modal-content"
+      overlayClassName="manuales-modal-overlay"
     >
-      <button  className="close-manual"onClick={onClose} >X</button>
-      <div className='content'>
-        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+      <div className="manuales-modal-header">
+        <h2>Manuales de Uso</h2>
+        <button className="manuales-close-button" onClick={onClose}>X</button>
+      </div>
+      <div className='manuales-modal-body'>
+        {isLoading ? (
+          <p>Cargando manuales...</p>
+        ) : (
+          <div 
+            dangerouslySetInnerHTML={{ __html: htmlContent }} 
+            onClick={handlePdfClick}
+          />
+        )}
       </div>
     </Modal>
   );

@@ -1,0 +1,149 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-top: -150px;
+  background-image: url('../Imagenes/Efiwiki.PNG'); /* Ruta de la imagen */
+  background-size: cover; /* Hace que la imagen cubra todo el fondo */
+  background-position: center; /* Centra la imagen en el fondo */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.main-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  gap: 50px;
+  width: 100%;
+  max-width: 600px; /* Puedes ajustar el ancho máximo según necesites */
+  margin-top: 50px;
+}
+
+.main-buttons .FQA-button {
+  grid-column: 4; /* Posiciona el botón en la primera columna */
+  justify-self: center; /* Centra horizontalmente */
+}
+
+.main-buttons .Comunicados-button {
+  grid-column: 2 ; /* Posiciona el botón en la segunda columna */
+  justify-self: center; /* Centra horizontalmente */
+}
+
+.main-buttons .Settings-button {
+  grid-column: 1 / span 2; /* Ocupa ambas columnas para centrarlo */
+  justify-self: center; /* Centra horizontalmente */
+}
+
+.main-buttons button {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgb(149, 218, 178);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 20px;
+  width: 130px;
+}
+
+.main-buttons button:hover {
+  transform: scale(1.1);
+  background: rgba(108, 172, 180, 0.3); /* Azul semi-transparente */
+}
+
+.main-buttons button:active {
+  background: rgba(81, 128, 84, 0.3); /* Verde semi-transparente */
+}
+
+.main-buttons button svg {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.social-media {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.social-media a {
+  color: white;
+  font-size: 2rem;
+  margin: 0 15px;
+  transition: transform 0.3s ease;
+}
+
+.social-media a:hover {
+  transform: scale(1.2);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.main-buttons button:hover .tooltip {
+  opacity: 1;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+}
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .main-content {
+    height: unset;
+    padding: 15px; /* Ajusta el padding para mejor visibilidad en pantallas pequeñas */
+    margin-top: 70px; /* Elimina el margen negativo para evitar el recorte del contenido */
+  }
+
+  .main-buttons {
+    display: flex; /* Cambia a un diseño flexible */
+    flex-direction: column; /* Coloca los botones en una sola columna */
+    gap: 20px; /* Reduce el espacio entre botones para mejor uso del espacio */
+    width: 100%; /* Asegura que los botones ocupen todo el ancho disponible */
+    max-width: 100%; /* Mantiene el ancho máximo del contenedor */
+  }
+
+  .main-buttons button {
+    width: 100%; /* Ajusta los botones para que ocupen todo el ancho disponible */
+    padding: 12px; /* Ajusta el padding para un tamaño más adecuado en pantallas pequeñas */
+  }
+
+  .social-media {
+    margin-top: 20px; /* Reduce el margen superior para más proximidad al contenido superior */
+  }
+
+  .social-media a {
+    font-size: 1.2rem; /* Ajusta el tamaño de fuente para que sea más legible en pantallas pequeñas */
+    margin: 0 8px; /* Reduce el margen horizontal para evitar el desbordamiento */
+  }
+
+  .tooltip {
+    font-size: 14px; /* Aumenta el tamaño de fuente para mejor legibilidad */
+    padding: 6px 12px; /* Ajusta el padding para más espacio dentro del tooltip */
+  }
+}

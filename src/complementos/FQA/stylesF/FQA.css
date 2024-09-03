@@ -1,0 +1,591 @@
+/* Superposición de FAQ */
+.faq-Overlay {
+  display: flex; /* Utiliza flexbox para centrar los elementos */
+  justify-content: center; /* Centra horizontalmente los elementos */
+  align-items: center; /* Centra verticalmente los elementos */
+  position: fixed; /* Posición fija para cubrir toda la pantalla */
+  top: 0; /* Alinea la superposición en la parte superior */
+  left: 0; /* Alinea la superposición en la parte izquierda */
+  right: 0; /* Alinea la superposición en la parte derecha */
+  bottom: 0; /* Alinea la superposición en la parte inferior */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  z-index: 1000; /* Capa superior */
+}
+
+/* Modal de FAQ */
+.faq-Modal {
+  position: relative; /* Posición relativa para elementos internos */
+  max-width: 70%; /* Ancho máximo del 70% */
+  max-height: 70%; /* Altura máxima del 70% */
+  width: 8000px; /* Ancho fijo de 500px */
+  height: 900px; /* Altura fija de 300px */
+  border: none; /* Sin borde */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(81, 131, 224, 0.2); /* Sombra */
+  overflow: auto; /* Desplazamiento automático si el contenido es grande */
+  background-color: white; /* Fondo blanco */
+  padding: 15px; /* Espaciado interno */
+  font-family: 'DIN-RegularAlternate', Arial, sans-serif; /* Fuente personalizada */
+}
+
+/* Superposición secundaria del modal */
+.secondary-modal-overlay {
+  position: fixed; /* Posición fija para cubrir toda la pantalla */
+  top: 0; /* Alinea la superposición en la parte superior */
+  left: 0; /* Alinea la superposición en la parte izquierda */
+  right: 0; /* Alinea la superposición en la parte derecha */
+  bottom: 0; /* Alinea la superposición en la parte inferior */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo más oscuro */
+  display: flex; /* Utiliza flexbox para centrar los elementos */
+  justify-content: center; /* Centra horizontalmente los elementos */
+  align-items: center; /* Centra verticalmente los elementos */
+  z-index: 1100; /* Capa superior */
+}
+
+/* Modal secundario */
+.secondary-modal {
+  background: white; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  max-width: 500px; /* Ancho máximo de 500px */
+  width: 100%; /* Ancho completo */
+  max-height: 80vh; /* Altura máxima del 80% de la ventana */
+  overflow-y: auto; /* Desplazamiento vertical automático */
+  position: relative; /* Posición relativa para elementos internos */
+  z-index: 1200; /* Capa superior */
+}
+
+/* Contenido de FAQ */
+.faq-content {
+  display: flex; /* Utiliza flexbox para el diseño */
+  flex-direction: column; /* Dirección en columna */
+}
+
+/* Encabezado del contenido de FAQ */
+.faq-content h2 {
+  margin-top: 0; /* Sin margen superior */
+  margin-bottom: 20px; /* Margen inferior de 20px */
+  color: #333; /* Color del texto */
+  font-weight: 900; /* Fuente en negrita */
+  font-size: 24px; /* Tamaño de fuente */
+}
+
+/* Botón para cerrar el modal */
+.close-modal {
+  position: absolute; /* Posición absoluta para situar en el contenedor */
+  top: -10px; /* Alinea en la parte superior */
+  right: -15px; /* Alinea a la derecha */
+  padding: 4px 8px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor a puntero al pasar sobre el botón */
+  background-color: #78a5d9; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  font-family: 'DIN-RegularAlternate', sans-serif; /* Fuente personalizada */
+  font-weight: bold; /* Fuente en negrita */
+  font-size: 14px; /* Tamaño de fuente */
+  transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+/* Estilo del botón de cierre al pasar el ratón por encima */
+.close-modal:hover {
+  background-color: #ca3e39; /* Color de fondo al pasar el ratón */
+}
+.close-secondary-modal{
+  position: absolute; /* Posición absoluta para situar en el contenedor */
+  top: 13px; /* Alinea en la parte superior */
+  right: 10px; /* Alinea a la derecha */
+  padding: 4px 8px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor a puntero al pasar sobre el botón */
+  background-color: #78a5d9; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none;
+  font-family: 'DIN-RegularAlternate', sans-serif; /* Fuente personalizada */
+  font-weight: bold; /* Fuente en negrita */
+  font-size: 14px; /* Tamaño de fuente */
+  transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+}
+.close-secondary-modal:hover{
+  background-color: #ca3e39; 
+}
+
+.canceledAddProblem-button {
+  background-color: #f44336; /* Color de fondo rojo */
+  color: #ffffff; /* Color del texto blanco */
+  padding: 8px 16px; /* Espaciado interno del botón */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 14px; /* Tamaño de fuente */
+  font-weight: bold; /* Texto en negrita */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+}
+
+.canceledAddProblem-button:hover {
+  background-color: #d32f2f; /* Color de fondo rojo más oscuro al pasar el mouse */
+  color: #ffffff; /* Color del texto blanco */
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón */
+}
+
+.canceledAddProblem-button:active {
+  background-color: #ca3e39; /* Color de fondo rojo aún más oscuro al hacer clic */
+  transform: scale(0.95); /* Reduce ligeramente el tamaño del botón al hacer clic */
+}
+
+.canceledAddProblem-button:focus {
+  outline: none; /* Elimina el borde de enfoque predeterminado */
+}
+/* Grupo de formularios */
+.form-group {
+  margin-bottom: 15px;
+  right: -30px; /* Margen inferior de 15px */
+}
+
+
+.input-group-mb-3 {
+  margin-bottom: 15px;
+  right: -60px; /* Margen inferior de 15px */
+}
+.error-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+/* Etiqueta del grupo de formularios */
+.form-group label {
+  display: block; /* Se muestra como bloque */
+  margin-bottom: 5px; /* Margen inferior de 5px */
+  font-weight: bold; /* Fuente en negrita */
+  color: #444; /* Color del texto */
+}
+
+/* Entrada de texto y área de texto del grupo de formularios */
+.form-group input,
+.form-group textarea {
+  width: 100%; /* Ancho completo */
+  padding: 8px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 14px; /* Tamaño de fuente */
+  font-family: 'DIN-RegularAlternate', sans-serif; /* Fuente personalizada */
+  transition: border-color 0.3s ease; /* Transición suave para el cambio de color del borde */
+}
+
+/* Estilo de entrada de texto y área de texto al enfocar */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #78a5d9; /* Color del borde al enfocar */
+  outline: none; /* Sin contorno */
+}
+
+/* Área de texto */
+.form-group textarea {
+  height: 100px; /* Altura de 100px */
+  resize: vertical; /* Redimensionable verticalmente */
+}
+
+/* Botón de envío */
+.submit-button {
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: white; /* Color del texto blanco */
+  padding: 7px 16px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  font-size: 16px; /* Tamaño de fuente */
+  font-weight: bold; /* Fuente en negrita */
+  font-family: 'DIN-RegularAlternate', sans-serif; /* Fuente personalizada */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves para el cambio de color y transformación */
+  margin-top: 10px; /* Margen superior */
+}
+
+.submit-button:hover {
+  background-color: #45a049; /* Color de fondo verde más oscuro al pasar el ratón */
+  transform: scale(1.05); /* Aumento sutil del botón al pasar el ratón */
+}
+
+.submit-button:active {
+  background-color: #388e3c; /* Color de fondo verde aún más oscuro al hacer clic */
+  transform: scale(0.95); /* Reducción del tamaño del botón al hacer clic */
+}
+
+.submit-button:focus {
+  outline: none; /* Elimina el borde de enfoque predeterminado */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Sombra de enfoque azul para visibilidad */
+}
+
+/* Acordeón */
+.accordion {
+  display: flex; /* Utiliza flexbox para el diseño */
+  flex-direction: column; /* Dirección en columna */
+}
+
+/* Elemento del acordeón */
+.accordion-item {
+  margin-bottom: 10px; /* Margen inferior de 10px */
+  background-color: #fff; /* Fondo blanco */
+  padding: 15px; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde */
+  border-radius: 4px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+  transition: box-shadow 0.3s ease; /* Transición suave para el cambio de sombra */
+}
+
+/* Estilo del elemento del acordeón al pasar el ratón por encima */
+.accordion-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra más grande al pasar el ratón */
+}
+
+/*   input de comentario  */
+
+.comments-section, .admin-comments-section {
+  margin-top: 15px;
+}
+
+.comments-section h3, .admin-comments-section h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.comments-section textarea {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.comments-section button, .admin-comments-section button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pending-comment {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+/*   estilos de los botones de  likes   */
+.like-dislike-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.like-dislike-buttons button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.like-button {
+  background-color: #d4edda; /* Fondo verde claro para "like" */
+}
+
+.like-button:hover {
+  background-color: #8cec9c; /* Fondo verde más oscuro al pasar el ratón */
+}
+
+.dislike-button {
+  background-color: #f8d7da; /* Fondo rojo claro para "dislike" */
+}
+
+.dislike-button:hover {
+  background-color: #f37671; /* Fondo rojo más oscuro al pasar el ratón */
+}
+
+.like-dislike-buttons button .fa-icon {
+  margin-right: 5px;
+}
+
+.showAll-button{
+  background-color: #e5ebe6;
+}
+
+.showAll-button:hover{
+  background-color: #8cec9c;
+
+}
+
+.showByLikes-button{
+  background-color: #ebf0ec;
+
+}
+
+.showByLikes-button:hover{
+  background-color: #8cec9c;
+
+}
+
+/*   estilos de los boton  agregar problema  1er modal   */
+
+.Addproblem-container {
+  position: relative; /* Asegura que el contenedor sea el referente para posicionar el botón */
+  /* Otros estilos para el contenedor de AddProblem-button */
+}
+
+
+.Addproblem-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #8bb6e4; /* Color de fondo azul claro */
+  color: #ffffff; /* Color del texto blanco */
+  padding: 8px 16px; /* Espaciado interno del botón, ajustado para ser similar al otro botón */
+  font-size: 14px; /* Tamaño de fuente */
+  font-weight: bold; /* Texto en negrita para mayor visibilidad */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+.Addproblem-button:hover {
+  background-color: #2470c2; /* Color de fondo azul más oscuro al pasar el mouse */
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón al pasar el mouse */
+}
+
+.Addproblem-button:active {
+  background-color: #004080; /* Color de fondo azul aún más oscuro al hacer clic */
+  transform: scale(0.95); /* Reduce ligeramente el tamaño del botón al hacer clic */
+}
+
+.Addproblem-button:focus {
+  outline: none; /* Elimina el borde de enfoque predeterminado */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Sombra de enfoque azul para visibilidad */
+}
+
+.Edit-button {
+  background-color: #6c757d; /* Color de fondo inicial (gris claro) */
+  color: white;              /* Color del texto */
+  padding: 8px 12px;        /* Espaciado interno */
+  font-size: 14px;          /* Tamaño de la fuente */
+  border: none;             /* Sin borde */
+  border-radius: 4px;       /* Bordes redondeados */
+  cursor: pointer;          /* Cursor en forma de mano al pasar sobre el botón */
+  transition: background-color 0.3s, transform 0.3s; /* Transición suave para los cambios de color y escala */
+}
+
+.Edit-button:hover {
+  background-color: #8cec9c; /* Color de fondo cuando el cursor pasa sobre el botón */
+  transform: scale(1.05);    /* Escala ligeramente el botón al pasar el cursor */
+}
+
+.Edit-button:active {
+  background-color: #0056b3; /* Color de fondo cuando el botón es presionado */
+  transform: scale(0.95);    /* Escala ligeramente el botón al hacer clic */
+}
+
+.Edit-button:focus {
+  outline: none;             /* Elimina el contorno del enfoque */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Añade una sombra alrededor del botón al estar enfocado */
+}
+
+.Delete-button {
+  background-color: #6c757d; /* Color de fondo inicial (gris claro) */
+  color: white;              /* Color del texto */
+  padding: 8px 12px;        /* Espaciado interno */
+  font-size: 14px;          /* Tamaño de la fuente */
+  border: none;             /* Sin borde */
+  border-radius: 4px;       /* Bordes redondeados */
+  cursor: pointer;          /* Cursor en forma de mano al pasar sobre el botón */
+  transition: background-color 0.3s, transform 0.3s; /* Transición suave para los cambios de color y escala */
+}
+
+.Delete-button:hover {
+  background-color: #eb6c6c; /* Color de fondo cuando el cursor pasa sobre el botón */
+  transform: scale(1.05);    /* Escala ligeramente el botón al pasar el cursor */
+}
+
+.Delete-button:active {
+  background-color: #f77272; /* Color de fondo cuando el botón es presionado */
+  transform: scale(0.95);    /* Escala ligeramente el botón al hacer clic */
+}
+
+.Delete-button:focus {
+  outline: none;             /* Elimina el contorno del enfoque */
+  box-shadow: 0 0 0 3px rgba(238, 85, 85, 0.712); /* Añade una sombra alrededor del botón al estar enfocado */
+}
+
+ /* visualzacion de problemas ver mas */
+.enhanced-view-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+
+.enhanced-view-modal {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  padding: 30px;
+  width: 80%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  z-index: 10000;
+  transition: transform 0.3s ease-in-out;
+  transform: scale(0.95);
+  animation: scale-up 0.3s forwards;
+}
+
+@keyframes scale-up {
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Contenido de la vista mejorada */
+
+.enhanced-view-content {
+  display: flex;
+  flex-direction: column;
+  font-family: 'DIN-RegularAlternate', sans-serif; /* Fuente personalizada */
+}
+
+/* Enhanced View Header */
+.enhanced-view-content h2 {
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #e0e0e0;
+}
+
+/* Subencabezado de la vista mejorada */
+.enhanced-view-content h3 {
+  color: #34495e;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+/*  Parrafos */
+.enhanced-view-content p {
+  color: #7f8c8d;
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/* Enhanced View Strong Text */
+.enhanced-view-content strong {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Close Button for Enhanced View Modal */
+.close-view-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #78a5d9;
+  color: white;
+  border: none;
+  border-radius: 5%;
+  width: 25px;
+  height: 25px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease,transform 0.3s ease;
+}
+
+.close-view-modal:hover {
+  background-color: #ca3e39;
+}
+
+/* Estilos para la sección de comentarios */
+.comments-section {
+  margin-top: 30px;
+  font-family: 'DIN-RegularAlternate', sans-serif; /* Fuente personalizada */
+}
+
+.comments-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comments-section li {
+  background-color: #ecf0f1;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.comments-section li:hover {
+  transform: scale(1.02);
+}
+
+.comments-section textarea {
+  width: 100%;
+  height: 80px;
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #bdc3c7;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.comments-section button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comments-section button:hover {
+  background-color: #1c5985;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .enhanced-view-overlay {
+    justify-content: center;
+    align-items: center;
+  }
+  .enhanced-view-modal {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .enhanced-view-content h2 {
+    font-size: 20px;
+  }
+
+  .enhanced-view-content h3 {
+    font-size: 18px;
+  }
+
+  .enhanced-view-content p {
+    font-size: 14px;
+  }
+}
+

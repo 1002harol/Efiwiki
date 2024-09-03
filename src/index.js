@@ -1,8 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css'; // Estilos globales
+import './stylesP/index.css'; // Estilos globales
 import App from './App';
-
+// import './fireBaseConfig';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -12,4 +12,3 @@ root.render(
     <App />
   </React.StrictMode>,
 );
-

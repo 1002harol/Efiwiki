@@ -1,0 +1,150 @@
+.login-container {
+  display: flex; /* Usa flexbox para centrar el formulario */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Altura completa de la vista del navegador */
+  background:  url('../../Imagenes/Logo.png'); /* Fondo con gradiente azul y verde */
+  animation: backgroundMove 10s ease-in-out infinite; /* Animación de movimiento de fondo */
+}
+
+/* Estilo del formulario de inicio de sesión */
+.login-form {
+  background-color: #ccd7db; /* Fondo blanco del formulario */
+  padding: 2.5rem; /* Espaciado interno del formulario */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombra alrededor del formulario */
+  width: 100%; /* Ancho completo dentro del contenedor */
+  max-width: 400px; /* Ancho máximo del formulario */
+  animation: formFadeIn 1s ease-in-out; /* Animación de desvanecimiento del formulario */
+  position: relative; /* Posicionamiento relativo para el uso de pseudo-elementos */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+}
+
+/* Pseudo-elemento para el fondo radial del formulario */
+.login-form:before {
+  content: ''; /* No muestra contenido, solo el fondo */
+  position: absolute; /* Posición absoluta respecto al contenedor del formulario */
+  top: -50%; /* Coloca el fondo por encima del área visible del formulario */
+  left: -50%; /* Coloca el fondo por la izquierda del área visible */
+  width: 200%; /* Ancho doble del formulario para el fondo radial */
+  height: 200%; /* Altura doble del formulario para el fondo radial */
+  /* background: radial-gradient(circle, #d5e4b4, #c3ecdc); Fondo radial azul y verde */
+  animation: rotateBackground 5s linear infinite; /* Animación de rotación del fondo radial */
+  z-index: 0; /* Envía el fondo radial detrás del contenido del formulario */
+  opacity: 0.2; /* Hace que el fondo radial sea semi-transparente */
+}
+
+/* Estilo del título dentro del formulario */
+.login-form h2 {
+  text-align: center; /* Centra el texto del título */
+  color: #1959a3; /* Color azul del título */
+  margin-bottom: 1.5rem; /* Espaciado inferior del título */
+  font-family: 'DIN-RegularAlternate', Arial, sans-serif; /* Peso de fuente negrita */
+  letter-spacing: 1.5px; /* Espaciado entre letras */
+  position: relative; /* Posicionamiento relativo para el z-index */
+  z-index: 1; /* Asegura que el título esté por encima del fondo radial */
+}
+
+/* Estilo para las etiquetas dentro del formulario */
+.login-form label {
+  display: block; /* Hace que la etiqueta ocupe todo el ancho disponible */
+  margin-bottom: 1rem; /* Espaciado inferior de las etiquetas */
+}
+
+/* Estilo de los inputs dentro del formulario */
+.login-form input {
+  width: 100%; /* Ancho completo dentro del formulario */
+  padding: 12px; /* Espaciado interno de los inputs */
+  margin-bottom: 1.5rem; /* Espaciado inferior entre inputs */
+  border: 2px solid #00aaff; /* Borde azul de los inputs */
+  border-radius: 8px; /* Bordes redondeados de los inputs */
+  font-size: 1.1rem; /* Tamaño de fuente de los inputs */
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra interna de los inputs */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave para cambios en borde y sombra */
+  position: relative; /* Posicionamiento relativo para el z-index */
+  z-index: 1; /* Asegura que el input esté por encima del fondo radial */
+}
+
+/* Estilo del input cuando está enfocado */
+.login-form input:focus {
+  border-color: #00ff99; /* Cambia el borde a verde cuando está enfocado */
+  outline: none; /* Elimina el borde de enfoque predeterminado */
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.7); /* Sombra alrededor del input cuando está enfocado */
+}
+
+/* Estilo del botón de enviar */
+.login-form button {
+  width: 100%; /* Ancho completo dentro del formulario */
+  padding: 12px; /* Espaciado interno del botón */
+  background-color: #00aaff; /* Fondo azul del botón */
+  color: white; /* Color del texto del botón */
+  border: none; /* Elimina el borde del botón */
+  border-radius: 8px; /* Bordes redondeados del botón */
+  font-size: 1.2rem; /* Tamaño de fuente del botón */
+  cursor: pointer; /* Muestra un cursor de puntero sobre el botón */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves para cambios de color y transformación */
+  font-weight: bold; /* Peso de fuente negrita */
+  position: relative; /* Posicionamiento relativo para el z-index */
+  z-index: 1; /* Asegura que el botón esté por encima del fondo radial */
+}
+
+/* Estilo del botón cuando se pasa el mouse sobre él */
+.login-form button:hover {
+  background-color: #a1cc5c; /*Cambia el fondo a verde cuando se pasa el mouse */
+  color:#1b5597;
+  transform: translateY(-3px); /* Eleva el botón ligeramente */
+  box-shadow: 0 10px 20px rgba(0, 255, 153, 0.6); /* Sombra alrededor del botón cuando se pasa el mouse */
+}
+
+/* Estilo del botón cuando se hace clic en él */
+.login-form button:active {
+  background-color: #0077cc; /* Cambia el fondo a azul oscuro cuando se hace clic */
+  transform: translateY(1px); /* Baja el botón ligeramente */
+  box-shadow: none; /* Elimina la sombra cuando se hace clic */
+}
+
+/* Estilos para pantallas más pequeñas */
+@media (max-width: 480px) {
+  .login-form {
+    padding: 1.5rem; /* Menos espaciado interno en pantallas pequeñas */
+  }
+
+  .login-form h2 {
+    font-size: 1.6rem; /* Tamaño de fuente del título en pantallas pequeñas */
+  }
+}
+
+/* Animación para el desvanecimiento del formulario */
+@keyframes formFadeIn {
+  from {
+    opacity: 0; /* Comienza con opacidad cero */
+    transform: translateY(-20px); /* Comienza con desplazamiento hacia arriba */
+  }
+  to {
+    opacity: 1; /* Termina con opacidad completa */
+    transform: translateY(0); /* Termina en su posición original */
+  }
+}
+
+/* Animación para el movimiento del fondo */
+@keyframes backgroundMove {
+  0% {
+    background-position: 0% 50%; /* Comienza en la posición inicial del fondo */
+  }
+  50% {
+    background-position: 100% 50%; /* Mueve el fondo a la mitad */
+  }
+  100% {
+    background-position: 0% 50%; /* Vuelve a la posición inicial del fondo */
+  }
+}
+
+/* Animación para la rotación del fondo radial */
+@keyframes rotateBackground {
+  from {
+    transform: rotate(0deg); /* Comienza sin rotación */
+  }
+  to {
+    transform: rotate(360deg); /* Termina con rotación completa */
+  }
+}

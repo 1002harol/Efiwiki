@@ -1,0 +1,58 @@
+/* Definición de la fuente DIN Alternate con dos variantes: Black y Regular */
+@font-face {
+  font-family: 'DIN Alternate';
+  src: url('../fonts/DIN-BlackAlternate.otf') format('opentype'); /* Fuente BlackAlternate en formato OpenType */
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DIN Alternate';
+  src: url('../fonts/DIN-RegularAlternate.ttf') format('truetype'); /* Fuente RegularAlternate en formato TrueType */
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Estilos generales para el cuerpo del documento */
+body {
+  font-family: 'DIN-RegularAlternate', Arial, sans-serif; /* Fuente predeterminada del cuerpo */
+  background-color: #f0f0f0; /* Color de fondo */
+  color: #000000; /* Color del texto */
+}
+
+/* Estilos para el elemento html */
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Estilos para el encabezado */
+header {
+  background: rgba(129, 167, 163, 0.158); /* Fondo del header con transparencia */
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative; /* Asegurar que el header esté siempre visible */
+}
+
+/* Estilos para el contenedor del logo en el encabezado */
+.logo-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+/* Estilos para la imagen del logo */
+.logo-wrapper img {
+  max-width: 100%; /* Asegura que el logo no exceda el ancho del contenedor */
+  height: auto; /* Mantiene la proporción del logo */
+}
+
+
+
+
+
+

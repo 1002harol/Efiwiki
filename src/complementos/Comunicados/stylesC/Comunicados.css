@@ -1,0 +1,116 @@
+/* Contenedor principal de comunicados */
+.comunicados-container {
+  padding: 20px; /* Espaciado interno */
+  max-width: 800px; /* Ancho máximo de 800px */
+  margin: 0 auto; /* Centrado horizontal */
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+  font-family: 'BlackAlternate', Arial, sans-serif; /* Fuente personalizada */
+}
+
+/* Encabezado del contenedor de comunicados */
+.comunicados-container h2 {
+  color: #333; /* Color del texto */
+  margin-bottom: 20px; /* Margen inferior de 20px */
+  font-family: 'BlackAlternate', Arial, sans-serif; /* Fuente personalizada */
+}
+
+/* Botón de cerrar */
+.close-button {
+  background-color: #78a5d9; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  padding: 5px 10px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor a puntero al pasar sobre el botón */
+  position: absolute; /* Posición absoluta para situar en el contenedor */
+  top: 10px; /* Alinea en la parte superior */
+  right: 10px; /* Alinea a la derecha */
+  font-family: 'BlackAlternate', Arial, sans-serif; /* Fuente personalizada */
+}
+
+/* Estilo del botón de cierre al pasar el ratón por encima */
+.close-button:hover {
+  background-color: #ca3e39; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilos del modal de comunicados */
+.powerpoint-modal-overlay {
+  position: fixed; /* Posición fija para cubrir toda la pantalla */
+  top: 0; /* Alinea la superposición en la parte superior */
+  left: 0; /* Alinea la superposición en la parte izquierda */
+  right: 0; /* Alinea la superposición en la parte derecha */
+  bottom: 0; /* Alinea la superposición en la parte inferior */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  display: flex; /* Utiliza flexbox para centrar los elementos */
+  justify-content: center; /* Centra horizontalmente los elementos */
+  align-items: center; /* Centra verticalmente los elementos */
+  z-index: 1000; /* Capa superior */
+}
+
+/* Contenido del modal de PowerPoint */
+.powerpoint-modal-content {
+  background-color: #fff; /* Fondo blanco */
+  padding: 20px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde */
+  border-radius: 5px; /* Bordes redondeados */
+  width: 90%; /* Ancho del 90% */
+  max-width: 9000px; /* Ancho máximo de 400px */
+  max-height: 60vh; /* Altura máxima del 80% de la ventana */
+  margin: auto; /* Centrado automático */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  overflow-y: auto; /* Desplazamiento vertical automático */
+  position: relative; /* Posición relativa para elementos internos */
+  font-family: 'BlackAlternate', Arial, sans-serif; /* Fuente personalizada */
+}
+
+/* Encabezado del modal de PowerPoint */
+.powerpoint-modal-header {
+  margin-bottom: 20px; /* Margen inferior de 20px */
+}
+
+/* Encabezado del modal de PowerPoint */
+.powerpoint-modal-header h2 {
+  margin: 0; /* Sin margen */
+  font-family: 'BlackAlternate', Arial, sans-serif; /* Fuente personalizada */
+}
+
+/* Formulario del modal de PowerPoint */
+.powerpoint-modal-form {
+  margin-bottom: 20px; /* Margen inferior de 20px */
+}
+
+
+/* Entrada de archivo del formulario del modal de PowerPoint */
+.powerpoint-modal-form input[type="file"] {
+  margin-bottom: 10px; /* Margen inferior de 10px */
+}
+
+/* Botón del formulario del modal de PowerPoint */
+.powerpoint-modal-form button {
+  padding: 10px 15px; /* Espaciado interno */
+  background-color: #4CAF50; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor a puntero al pasar sobre el botón */
+  font-family: 'BlackAlternate', Arial, sans-serif; /* Fuente personalizada */
+}
+
+/* Estilo del botón del formulario cuando está deshabilitado */
+.powerpoint-modal-form button:disabled {
+  background-color: #cccccc; /* Color de fondo */
+  cursor: not-allowed; /* Cursor no permitido */
+}
+
+/* Progreso de la carga, mensaje de carga y mensaje de error */
+.upload-progress, .upload-message, .error {
+  margin-top: 10px; /* Margen superior de 10px */
+}
+
+/* Mensaje de error */
+.error {
+  color: red; /* Color del texto */
+}
+

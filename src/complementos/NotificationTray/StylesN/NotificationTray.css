@@ -1,0 +1,22 @@
+.notification-button {
+    z-index: 1030;
+    margin-top: 10px;
+    margin-right: 200px;
+    padding: 0.25rem;
+    border-width: 1px;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    @media (min-width: 768px) {
+      /* Para pantallas medianas y más grandes */
+      margin-right: 180px;
+    }
+  
+    /* Nueva media query para pantallas muy pequeñas */
+    @media (max-width: 576px) {
+      margin-right: 110px; /* Ajusta este valor según tus necesidades */
+    }
+  }
