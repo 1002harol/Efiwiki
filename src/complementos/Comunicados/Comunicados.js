@@ -20,7 +20,6 @@ const Comunicados = ({ onClose }) => {
   const [newComment, setNewComment] = useState('');
   const [selectedFile,setSelectedFile] = useState(null);
 
-
   useEffect(() => {
     // Cargar el comunicado y los comentarios desde la base de datos
     const loadComunicadoAndComments = async () => {
@@ -46,7 +45,6 @@ const Comunicados = ({ onClose }) => {
     setSelectedFile(event.target.files[0]);
   };
 
-  
   const handleFileUpload = async () => {
     if (selectedFile) {
       const formData = new FormData();

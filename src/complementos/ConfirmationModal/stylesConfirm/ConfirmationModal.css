@@ -30,14 +30,13 @@
   
   .modal-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     margin-top: 20px;
   }
   
   .btn {
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     margin-left: 10px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
   }
@@ -45,9 +44,24 @@
   .btn-confirm {
     background-color: #4CAF50;
     color: white;
+    font-size: 20px;
+    padding: 7px 14px;
+    border:none;
+    border-radius: 4px;
+  }
+
+  .btn-confirm:hover{
+    background-color: #3aad3d;
   }
   
   .btn-cancel {
     background-color: #f44336;
     color: white;
+    font-size: 20px;
+    padding: 7px 14px;
+    border:none;
+    border-radius: 4px;
+  }
+  .btn-cancel:hover{
+    background-color: #ef392c;
   }

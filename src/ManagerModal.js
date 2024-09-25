@@ -38,8 +38,6 @@ const ManagerModal = ({ modalType, isOpen, onClose }) => {
       overlayClassName="modal-overlay"
     >
       <div className="modal-header">
-        {/* <h2>{modalType}</h2>
-        <button onClick={onClose} className="close-button">X</button> */}
       </div>
       {renderModalContent()}
     </Modal>

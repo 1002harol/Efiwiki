@@ -1,9 +1,15 @@
+/* estilos tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Definición de la fuente DIN Alternate con dos variantes: Black y Regular */
 @font-face {
   font-family: 'DIN Alternate';
   src: url('../fonts/DIN-BlackAlternate.otf') format('opentype'); /* Fuente BlackAlternate en formato OpenType */
   font-weight: 900;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -11,11 +17,12 @@
   src: url('../fonts/DIN-RegularAlternate.ttf') format('truetype'); /* Fuente RegularAlternate en formato TrueType */
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /* Estilos generales para el cuerpo del documento */
 body {
-  font-family: 'DIN-RegularAlternate', Arial, sans-serif; /* Fuente predeterminada del cuerpo */
+  font-family: 'DIN-RegularAlternate'; /* Fuente predeterminada del cuerpo */
   background-color: #f0f0f0; /* Color de fondo */
   color: #000000; /* Color del texto */
 }
@@ -50,6 +57,17 @@ header {
   max-width: 100%; /* Asegura que el logo no exceda el ancho del contenedor */
   height: auto; /* Mantiene la proporción del logo */
 }
+
+
+
+/* Media queries */
+@media (max-width: 768px) {
+  .menu-container {
+    width: 100%;
+    height: auto;
+  }
+}
+
 
 
 

@@ -3,11 +3,11 @@
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
   height: 100vh; /* Altura completa de la vista del navegador */
-  background:  url('../../Imagenes/Logo.png'); /* Fondo con gradiente azul y verde */
+  background:  url('../../Imagenes/Logo.webp'); /* Fondo con gradiente azul y verde */
   animation: backgroundMove 10s ease-in-out infinite; /* Animación de movimiento de fondo */
 }
 
-/* Estilo del formulario de inicio de sesión */
+/* Estilo del formulario de inicio de login */
 .login-form {
   background-color: #ccd7db; /* Fondo blanco del formulario */
   padding: 2.5rem; /* Espaciado interno del formulario */
@@ -37,13 +37,15 @@
 /* Estilo del título dentro del formulario */
 .login-form h2 {
   text-align: center; /* Centra el texto del título */
-  color: #1959a3; /* Color azul del título */
+  color:  #34abc3; /* Color azul del título */
   margin-bottom: 1.5rem; /* Espaciado inferior del título */
-  font-family: 'DIN-RegularAlternate', Arial, sans-serif; /* Peso de fuente negrita */
+  font-family: 'DIN-BlackAlternate'; /* Peso de fuente negrita */
+  font-size: 40px;
   letter-spacing: 1.5px; /* Espaciado entre letras */
   position: relative; /* Posicionamiento relativo para el z-index */
   z-index: 1; /* Asegura que el título esté por encima del fondo radial */
 }
+
 
 /* Estilo para las etiquetas dentro del formulario */
 .login-form label {
@@ -51,25 +53,49 @@
   margin-bottom: 1rem; /* Espaciado inferior de las etiquetas */
 }
 
-/* Estilo de los inputs dentro del formulario */
-.login-form input {
-  width: 100%; /* Ancho completo dentro del formulario */
-  padding: 12px; /* Espaciado interno de los inputs */
-  margin-bottom: 1.5rem; /* Espaciado inferior entre inputs */
-  border: 2px solid #00aaff; /* Borde azul de los inputs */
-  border-radius: 8px; /* Bordes redondeados de los inputs */
-  font-size: 1.1rem; /* Tamaño de fuente de los inputs */
-  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra interna de los inputs */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave para cambios en borde y sombra */
-  position: relative; /* Posicionamiento relativo para el z-index */
-  z-index: 1; /* Asegura que el input esté por encima del fondo radial */
+/* Estilos de los inputs de usuario y contraseña */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1.5rem;
+  border: 2px solid #00aaff;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
-/* Estilo del input cuando está enfocado */
-.login-form input:focus {
-  border-color: #00ff99; /* Cambia el borde a verde cuando está enfocado */
-  outline: none; /* Elimina el borde de enfoque predeterminado */
-  box-shadow: 0 0 10px rgba(0, 255, 153, 0.7); /* Sombra alrededor del input cuando está enfocado */
+/* Estilo de los inputs cuando están enfocados */
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #00ff99;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.7);
+}
+
+.remember-me-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilos del checkbox de "Recordarme" */
+.remember-me-container .form-checkbox {
+  margin-right: 10px;
+}
+
+.remember-me-container .text-sm {
+  font-size: 0.875rem;
+}
+.remember-me-container .form-checkbox:focus{
+  border-color: #00ff99;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.7);
+
 }
 
 /* Estilo del botón de enviar */
@@ -80,12 +106,10 @@
   color: white; /* Color del texto del botón */
   border: none; /* Elimina el borde del botón */
   border-radius: 8px; /* Bordes redondeados del botón */
-  font-size: 1.2rem; /* Tamaño de fuente del botón */
+  font-size: 1.1rem; /* Tamaño de fuente del botón */
   cursor: pointer; /* Muestra un cursor de puntero sobre el botón */
   transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves para cambios de color y transformación */
   font-weight: bold; /* Peso de fuente negrita */
-  position: relative; /* Posicionamiento relativo para el z-index */
-  z-index: 1; /* Asegura que el botón esté por encima del fondo radial */
 }
 
 /* Estilo del botón cuando se pasa el mouse sobre él */
@@ -101,6 +125,12 @@
   background-color: #0077cc; /* Cambia el fondo a azul oscuro cuando se hace clic */
   transform: translateY(1px); /* Baja el botón ligeramente */
   box-shadow: none; /* Elimina la sombra cuando se hace clic */
+}
+
+.error-message {
+  color: #ff0000;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 /* Estilos para pantallas más pequeñas */
@@ -148,3 +178,4 @@
     transform: rotate(360deg); /* Termina con rotación completa */
   }
 }
+

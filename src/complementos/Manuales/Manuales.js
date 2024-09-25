@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import '../Manuales/stylesM/Manuales.css';
 
-Modal.setAppElement('#root');
+if (process.env.NODE_ENV !== 'test') {
+  Modal.setAppElement('#root');
+}
 
 const Manuales = ({ isOpen, onClose }) => {
   const [htmlContent, setHtmlContent] = useState('');

@@ -4,18 +4,16 @@ import {fetchProblems, addProblem, updateProblem, deleteProblem } from './FQAAPI
 import Modal from 'react-modal';
 import axios from 'axios';
 import {toast,ToastContainer} from 'react-toastify';
-import 'react-toastify/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useAuth } from '../../Login/AuthContext';
-import NotificationTray from '../NotificationTray/NotificationTray';
+import NotificationTray from '../BotonesMenu/NotificationTray/NotificationTray.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { useQuery,  useMutation , useQueryClient } from 'react-query';
 
 
 const FQA = ({ isOpen, onClose }) => {
-  const [problems, setProblems] = useState([]);
   const [filteredProblems, setFilteredProblems] = useState([]);
-  const [error, setError] = useState(null);
   const [selectedApp, setSelectedApp] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [modalData, setModalData] = useState({ aplicacion: '', descripcion: '', solucion: '' });
@@ -30,6 +28,12 @@ const FQA = ({ isOpen, onClose }) => {
   const [newComment, setNewComment] = useState(''); 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const queryClient = useQueryClient();
+
+  const { user } = useAuth();
+  const isAdmin =user?.role === 'admin';
+
+  const aplicativos = ['Efinet', 'Efiwiki', 'Intranet', 'Smartflex'];
 
 
   // const [notifications,setNotifications]=useState([]);
@@ -42,73 +46,62 @@ const FQA = ({ isOpen, onClose }) => {
     onCancel: () => {},
   });
 
-
-
-  const { user } = useAuth();
-  const isAdmin =user?.role === 'admin';
-
-  const aplicativos = ['Efinet', 'Efiwiki', 'Intranet', 'Smartflex'];
-
-
-
-  const filterProblems = useCallback(() => {
-    if (!selectedApp) {
-      // Si no hay ninguna aplicación seleccionada, no mostrar nada
-      setFilteredProblems([]);
-      return;
+  const { data: problems = [], isLoading, error } = useQuery(
+    ['problems',selectedApp],
+     async () =>  await fetchProblems(selectedApp),
+    {
+      enabled: !!selectedApp,
+      staleTime: 5*60*100, //5mins
+      cacheTime: 60*60*100 , //1 hora
+      onError: (error) => {
+        toast.error('Error al cargar los problemas : '+ error.message); 
+      }
     }
-  
-    let filtered = problems;
-  
-    // Filtrar por la aplicación seleccionada
-    filtered = filtered.filter(problem => problem.aplicacion === selectedApp);
-  
-    if (searchQuery) {
-      filtered = filtered.filter(problem =>
-        problem.descripcion.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        problem.solucion.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+  );
+
+
+
+
+const filterProblems = useCallback(() => {
+  // Si no hay aplicación seleccionada o no hay problemas cargados, limpiar la lista
+  if (!selectedApp || !problems) {
+    // Solo actualizamos el estado si realmente hay un cambio
+    setFilteredProblems(prevFiltered => {
+      if (prevFiltered.length > 0) {
+        return []; // Limpiar solo si antes había problemas filtrados
+      }
+      return prevFiltered; // Mantener el estado anterior si ya estaba vacío
+    });
+    return;
+  }
+
+  // Filtrar problemas por la aplicación seleccionada
+  let filtered = problems.filter(problem => problem.aplicacion === selectedApp);
+
+  // Si hay un query de búsqueda, aplicar el filtro adicional
+  if (searchQuery) {
+    filtered = filtered.filter(problem =>
+      problem.descripcion.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      problem.solucion.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  // Actualizar el estado solo si los problemas filtrados han cambiado
+  setFilteredProblems(prevFiltered => {
+    // Evitar actualizar si los problemas filtrados son los mismos
+    if (JSON.stringify(prevFiltered) === JSON.stringify(filtered)) {
+      return prevFiltered; // No hacer nada si no ha cambiado el resultado
+    } else {
+      return filtered; // Actualizamos si los resultados son diferentes
     }
-  
-    setFilteredProblems(filtered);
-  }, [selectedApp, problems, searchQuery]);
+  });
+}, [selectedApp, problems, searchQuery]);
 
-  useEffect(() => {
-    filterProblems();
-  }, [selectedApp, problems,searchQuery,filterProblems]);
+// useEffect para ejecutar el filtro cuando cambian los problemas o el query
+useEffect(() => {
+  filterProblems(); // Llamar a la función de filtrado cuando cambian las dependencias
+}, [filterProblems, problems, searchQuery]);
 
-  const loadProblems = useCallback(async () => {
-    try {
-      //si no  hay ninguna aplicacion seleccionada no carga nada//
-      if (!selectedApp){
-        setProblems([]);
-        setFilteredProblems([]);
-        return;
-    }
-    const data = await fetchProblems(selectedApp);  // Pasamos selectedApp como parámetro
-    const filteredByApp = data.filter(problem => problem.aplicacion === selectedApp);
-
-
-
-
-
-
-      // Actualiza el estado con los problemas filtrados por la aplicación seleccionada
-      setProblems(filteredByApp);
-      setFilteredProblems(filteredByApp);
-  
-      toast.success('Problemas cargados exitosamente.');
-    } catch (err) {
-      setError('Error al cargar los problemas. Intenta de nuevo más tarde.');
-      toast.error('Error al cargar los problemas.');
-    }
-  }, [selectedApp]);
-
-  useEffect(() => {
-    if (isOpen && selectedApp) {
-      loadProblems();
-    }
-  }, [isOpen, selectedApp, loadProblems ]);
 
   const validateSpelling = async (fieldName, text) => {
     try {
@@ -180,7 +173,7 @@ const FQA = ({ isOpen, onClose }) => {
       return;
     }
   
-    const problemId = enhancedViewData.id;
+    const problemId = enhancedViewData?.id || enhancedViewData?.id;
     const newCommentObject = {
       problemId: problemId,
       content: newComment.trim(),
@@ -259,108 +252,122 @@ useEffect(() => {
 }, [isEnhancedViewModalOpen, enhancedViewData]);
 
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    try {
-      // Validar todos los campos
-      await validateForm('aplicacion', modalData.aplicacion);
-      await validateForm('descripcion', modalData.descripcion);
-      await validateForm('solucion', modalData.solucion);
-  
-      setConfirmationModal({
-        isOpen: true,
-        message: modalType === 'newProblem' ? "¿Estás seguro de que quieres agregar este problema?" : "¿Estás seguro de que quieres actualizar este problema?",
-        descripcion: modalData.descripcion,
-        solucion: modalData.solucion,
-        onConfirm: async () => {
-          try {
-            let updatedProblems;
-            console.log('Enviando solicitud al servidor...', modalData);
-            if (isAdmin) {
-              if (modalType === 'newProblem') {
-                const newProblem = await addProblem(modalData);
-                updatedProblems = [...problems, newProblem];
-                toast.success('Nuevo problema agregado exitosamente.');
-                sendNotification('Un nuevo problema ha sido agregado.');
-              } else if (modalType === 'editProblem') {
-                const { aplicacion, descripcion, solucion } = modalData;
-                const updatedProblem = await updateProblem(currentProblem.id, { aplicacion, descripcion, solucion });
-                if (updatedProblem) {
-                  updatedProblems = problems.map(p => p.id === updatedProblem.id ? updatedProblem : p);
-                  toast.success('Problema actualizado exitosamente.');
-                  sendNotification('Un problema ha sido modificado.');
-                } else {
-                  throw new Error('No se recibieron datos actualizados del servidor');
-                }
-              }
-            }
-  
-            if (updatedProblems) {
-              setProblems(updatedProblems);
-              filterProblems();
-              closeSecondaryModal();
-              console.log('Solicitud procesada exitosamente.');
-            }
-          } catch (err) {
-            console.error('Error en la solicitud:', err);
-            console.log('Datos enviados:', modalData);
-            setError(err.message);
-  
-            if (err.response) {
-              console.error('Error en la respuesta del servidor:', err.response.status, err.response.data);
-              toast.error(`Error del servidor: ${err.response.status} - ${err.response.data.message || 'Verifica los datos enviados.'}`);
-            } else if (err.request) {
-              console.error('No se recibió respuesta del servidor:', err.request);
-              toast.error('No se recibió respuesta del servidor. Verifica tu conexión a internet.');
-            } else {
-              console.error('Error al configurar la solicitud:', err.message);
-              toast.error('Error al configurar la solicitud. Revisa la consola para más detalles.');
-            }
-          } finally {
-            setConfirmationModal(prev => ({ ...prev, isOpen: false }));
-          }
-        },
-        onCancel: () => {
-          console.log('Solicitud cancelada por el usuario.');
-          setConfirmationModal(prev => ({ ...prev, isOpen: false }));
-        }
-      });
-  
-    } catch (validationError) {
-      console.error('Error de validación:', validationError);
-      toast.error('Error en la validación del formulario. Corrige los errores y vuelve a intentarlo.');
+const addProblemMutation = useMutation(addProblem, {
+  onSuccess: () => {
+    queryClient.invalidateQueries(['problems', selectedApp]);
+    toast.success('Nuevo problema agregado exitosamente.');
+    sendNotification('Un nuevo problema ha sido agregado.');
+  },
+  onError: (error) => {
+    toast.error('Error al agregar el problema: ' + error.message);
+  }
+});
+
+// Update problem mutation
+const updateProblemMutation = useMutation(
+  ({ id, problemData }) => {
+
+    // const { id:_, activo:__, ...dataTosend } = problemData; 
+    return updateProblem(id, problemData);
+    },
+    {
+    onSuccess: (response) => {
+      console.log('Respuesta del servidor:', response);
+      queryClient.invalidateQueries(['problems', selectedApp]);
+      toast.success(response.message || 'Problema actualizado exitosamente.');
+      closeSecondaryModal();
+    },
+    onError: (error) => {
+      console.error('Error en la mutación:', error);
+      toast.error(`Error: ${error.message}`);
     }
-  };
+  }
+);
 
+// Delete problem mutation
+const deleteProblemMutation = useMutation(deleteProblem, {
+  onSuccess: () => {
+    queryClient.invalidateQueries(['problems', selectedApp]);
+    toast.success('Problema eliminado exitosamente.');
+  },
+  onError: (error) => {
+    toast.error('Error al eliminar el problema: ' + error.message);
+  }
+});
 
+// Handle form submission
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  console.log('Datos del modal', modalData);
 
+  // // Verificar errores de validación
+  // if (Object.keys(formErrors).some((key) => formErrors[key])) {
+  //   toast.error('Por favor, corrija los errores del formulario antes de enviarlo.');
+  //   return;
+  // }
 
-  const handleDelete = async (id) => {
-    setConfirmationModal({
-      isOpen: true,
-      message: '¿Estás seguro de que deseas eliminar este problema?',
-      descripcion: '',
-      solucion: '',
-      onConfirm: async () => {
-        try {
-          await deleteProblem(id);
-          const updatedProblems = problems.filter(p => p.id !== id);
-          setProblems(updatedProblems);
-          filterProblems();
-          toast.success('Problema eliminado exitosamente.');
-        } catch (err) {
-          setError(err.message);
-          toast.error('Error al intentar eliminar el problema.');
-        } finally {
-          setConfirmationModal(prev => ({ ...prev, isOpen: false })); // Close confirmation modal
-        }
-      },
-      onCancel: () => {
+  // Determinar si se está creando un nuevo problema o actualizando uno existente
+  const isNewProblem = modalType === 'newProblem';
+
+  let actionParams;
+  if (isNewProblem) {
+    actionParams = modalData;
+  } else {
+    // Verificar si currentProblem existe y tiene un _id
+    if (!currentProblem || !currentProblem.id) {
+      toast.error('No se pudo identificar el problema a actualizar.');
+      return;
+    }
+
+    // const{...problemData} = modalData;
+    actionParams = { 
+      id:currentProblem.id, // Incluir el ID del problema para la actualización
+      problemData:modalData
+    };
+  }
+
+  const action = isNewProblem ? addProblemMutation.mutateAsync : updateProblemMutation.mutateAsync;
+  const actionMessage = isNewProblem
+    ? '¿Estás seguro de que deseas agregar este nuevo problema?'
+    : '¿Estás seguro de que deseas actualizar este problema?';
+
+  // Configurar y abrir la ventana de confirmación
+  setConfirmationModal({
+    isOpen: true,
+    message: actionMessage,
+    onConfirm: async () => {
+      try {
+        await action(actionParams);
+        queryClient.invalidateQueries(['problems', selectedApp]);  // Refrescar la lista de problemas
+        toast.success(isNewProblem ? 'Problema agregado exitosamente.' : 'Problema actualizado exitosamente.');
+        closeSecondaryModal();  // Cerrar el modal
+      } catch (err) {
+        console.error('Error en la solicitud:', err);
+        toast.error(`Error al ${isNewProblem ? 'agregar' : 'actualizar'} el problema: ${err.message}`);
+      } finally {
         setConfirmationModal(prev => ({ ...prev, isOpen: false }));
       }
-    });
-  };
+    },
+    onCancel: () => setConfirmationModal(prev => ({ ...prev, isOpen: false }))
+  });
+};
+// Handle problem deletion
+const handleDelete = async (id) => {
+  setConfirmationModal({
+    isOpen: true,
+    message: '¿Estás seguro de que deseas eliminar este problema?',
+    onConfirm: async () => {
+      try {
+        await deleteProblemMutation.mutateAsync(id);
+      } finally {
+        setConfirmationModal(prev => ({ ...prev, isOpen: false }));
+      }
+    },
+    onCancel: () => {
+      setConfirmationModal(prev => ({ ...prev, isOpen: false }));
+    }
+  });
+};
 
   const handleOpenSecondaryModal = (type, problem = null) => {
     setModalType(type);
@@ -417,6 +424,9 @@ useEffect(() => {
 
           <div className="faq-main">
             {error && <p className="alert alert-danger">{error}</p>}
+            {isLoading ? (
+              <p>Cargando problemas...</p>
+            ) : (
           <div  className='table-responsive'>
            <table className='table table-striped table-hover'>   
             <thead className="table-dark">
@@ -450,7 +460,7 @@ useEffect(() => {
             </tbody>
           </table>
         </div>
-          
+        )}
         <nav aria-label="Page navigation">
               <ul className="pagination justify-content-center">
                 {Array.from({ length: Math.ceil(filteredProblems.length / itemsPerPage) }, (_, i) => (

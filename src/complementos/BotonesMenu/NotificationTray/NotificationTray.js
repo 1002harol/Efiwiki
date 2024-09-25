@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useAuth } from '../../Login/AuthContext';
+import { useAuth } from '../../../Login/AuthContext.js';
 import { FaBell, FaTrash ,FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
-import './StylesN/NotificationTray.css';
+import '../../../stylesP/NavegationBar.css';
 
 const NotificationTray = () => {
   const [show, setShow] = useState(false);
@@ -67,17 +67,18 @@ const NotificationTray = () => {
         variant="light"
         onClick={toggleTray}
         className="notification-button position-fixed top-0 end-0"
+        aria-label="Boton de notificacion"
       >
-        <FaBell size={16} />
+        <FaBell size={15} />
         {notifications.length > 0 && (
-          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+          <span className="position-absolute top-0 start-100  badge rounded-pill bg-danger" 
                 style={{ fontSize: '0.5rem', padding: '0.25em 0.4em' }}>
             {notifications.length}
           </span>
         )}
       </Button>
       {show && (
-        <div className="notification-container position-fixed top-0 end-0 bg-white shadow rounded" 
+        <div className="notification-container position-fixed top- end-0 bg-white shadow rounded" 
              style={{ width: '300px', maxHeight: '80vh', overflowY: 'auto', zIndex: 1020, marginTop: '3rem', marginRight: '20px' }}>
           <div className="p-2 bg-light border-bottom">
             <strong>Notificaciones</strong>

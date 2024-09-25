@@ -27,7 +27,7 @@
   position: absolute; /* Posición absoluta para situar en el contenedor */
   top: 10px; /* Alinea en la parte superior */
   right: 10px; /* Alinea a la derecha */
-  font-family: 'BlackAlternate', Arial, sans-serif; /* Fuente personalizada */
+  font-family: 'BlackAlternate'; /* Fuente personalizada */
 }
 
 /* Estilo del botón de cierre al pasar el ratón por encima */

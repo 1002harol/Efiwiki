@@ -1,78 +1,75 @@
 /* Contenedor principal de la barra de navegación */
+
 .navigation-bar {
   background-color: #ffffff;
   width: 100%;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 8px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
   top: 0;
-  z-index: 1400;
-  height: 50px;
-  overflow: hidden;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-sizing: border-box;
 }
-
-/* Contenedor del logo */
-.logo-container {
+.navigation-bar .logo-container {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
-
-/* Estilo del icono del logo */
-.logo-icon {
-  height: 70px;
-  margin-right: 20px;
+.navigation-bar .logo-icon{
+  height: 70px !important;
+  width: auto !important;
+  object-fit: contain; /* Asegura que la imagen no se deforme */
+  margin-right: 10px;
 }
 
 /* Estilo del título */
-.title {
-  cursor: pointer;
-  flex: 1;
-  text-align: right;
-  font-size: 2rem;
+.navigation-bar .title {
+  color: #0d67c0;
+  text-align: center; /* Centrar el título */
+  font-family: 'DIN Alternate', sans-serif;
   margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  align-items: center;
-  left: 20%;
+  margin-left: 270px;
+  white-space: nowrap; /* Evita que el texto del título se desborde */
 }
+
+
 
 /* Contenedor del menú */
-.menu-container {
-  position: relative;
-  z-index: 1600;
-  right: 100px;
-  cursor:pointer;
-  transition: all 0.3s ease;
+.navigation-bar .menu-container {
+  display: flex;  /* Usar flexbox para organizar los elementos del menú */
+  align-items: center; /* Centra verticalmente los elementos */
+  justify-content: flex-end;
+  border: none;
 }
-
-/* .menu-container:hover{
-  transform: scale(0.1);
-  background: rgba(108, 172, 180, 0.3); /* Azul semi-transparente */
-
 
 /* Estilo del icono del menú (hamburguesa) */
-.menu-icon {
+.navigation-bar .menu-icon {
   cursor: pointer;
-  font-size: 28px;
+  font-size: 24px;
   color: #a6e0b0;
+  margin-right: 15px;
+  /* margin-top: -8px; */ 
 }
 
+
 /* Estilo del menú desplegable */
-.menu-overlay {
-  display: none;
-  position: fixed;
-  top: 60px;
-  right: 10px;
+.navigation-bar .menu-overlay {
+  position: absolute;
+  top: 100px; /* Asegura que el menú se despliegue justo debajo de la barra */
+  right: 15px;
   background-color: #f9f9f9;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  z-index: 1500;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  z-index: 1100;
   width: 200px;
   max-height: 300px;
   overflow-y: auto;
+  display: none;
 }
 
 /* Mostrar el menú cuando se hace clic */
@@ -80,30 +77,40 @@
   display: block;
 }
 
-/* Contenido del menú desplegable */
-.dropdown-content {
+.navigation-bar .dropdown-content {
   display: flex;
   flex-direction: column;
-  padding: 10px 0;
+  padding: 2px 0;
+}
+
+.notification-button {
+  z-index: 1030;
+  margin-right: 180px;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
 }
 
 /* Estilo de los botones del menú */
-.menu-button,
-.menu-button-logout-button {
+.navigation-bar .menu-button,
+.navigation-bar .menu-button-logout-button {
   background-color: transparent;
   color: #333;
-  border: none;
-  text-align: left;
-  padding: 10px 20px;
+  padding: 8px 16px;
   width: 100%;
   cursor: pointer;
+  border: none;
 }
-
 /* Efecto hover para los botones del menú */
 .menu-button:hover {
   background-color: rgba(81, 128, 84, 0.3);
 }
 
+/* Efecto hover para los botones del menú */
+.navigation-bar .menu-button:hover {
+  background-color: rgba(81, 128, 84, 0.3);
+}
 /* Estilo específico para el botón de cerrar sesión */
 .menu-button-logout-button {
   color: #d9534f;
@@ -114,91 +121,68 @@
   background-color: rgba(175, 100, 87, 0.3);
 }
 
-/* Estilo para el contenido principal */
-.main-content {
-  position: relative;
-  z-index: 1000;
+
+
+
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .navigation-bar .logo-icon {
+    height: 50px;
+  }
+  
+  .navigation-bar .title {
+    font-size: 1.3rem;
+
+    
+  }
 }
 
-/* Estilo para el body */
-body {
-  padding-top: 60px;
-}
-
-/* Media Queries para ajustar el diseño en diferentes tamaños de pantalla */
-
-/* Pantallas medianas y grandes (solo aplicable a monitores de escritorio) */
-@media (max-width: 1440px) {
+@media (max-width: 768px) {
   .navigation-bar {
-      padding: 10px 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 2px;
   }
 
-  .logo-icon {
-      height: 80px;
+  .navigation-bar .logo-container {
+    flex: 0 1 auto;
+    margin-right: 10px;
   }
 
-  .title {
-      font-size: 1.8rem;
+  .navigation-bar .title {
+    font-size: 1.2rem;
+    margin-top: 30px;
+    margin-left: 150px;
   }
 
-  .menu-icon {
-      font-size: 24px;
-  }
-}
-
-/* Media Queries para pantallas de portátiles */
-@media (max-width: 1366px) {
-  .navigation-bar {
-      padding: 10px 15px;
+  .navigation-bar .menu-container {
+    order: 3;
+    flex-basis: 100%;
+    justify-content: flex-end;
+    margin-top: -10px;
   }
 
-  .logo-icon {
-      height: 70px;
-      margin-right: 15px;
+  .navigation-bar .menu-icon {
+    margin-top: -28px;  /*Altura del boton  */
   }
 
-  .title {
-      font-size: 1.5rem;
-  }
+  .notification-button {
+    margin-top: 28px;
 
-  .menu-icon {
-      font-size: 24px;
-  }
-
-  .menu-container {
-      position: relative;
-      right: 70px;
-  }
-
-  .menu-overlay {
-      width: 180px;
   }
 }
 
-/* Media Queries para pantallas de laptops más pequeñas (hasta 1280px) */
-@media (max-width: 1280px) {
-  .navigation-bar {
-      padding: 20px 1px;
+@media (max-width: 480px) {
+  .navigation-bar .logo-icon {
+    height: 40px;
   }
 
-  .logo-icon {
-      height: 70px;
-      margin-right: 10px;
+  .navigation-bar .title {
+    font-size: 1rem;
   }
 
-  .title {  
-      font-size: 1.4rem;
-  }
-
-  .menu-icon {
-      font-size: 22px;
-  }
-
-  .menu-container {
-      right: 70px;
-  }
-
-  .menu-overlay {
-      width: 170px;
+  .notification-button {
+    right: 40px;
   }
 }

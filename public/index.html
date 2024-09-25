@@ -3,35 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <link rel="stylesheet" href="static/media/BlackAlternate.f254958057b1afb721dd.ttf"> -->
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
     <title>Efiwiki</title>
-  <script defer src="bundle.js"></script>
+    <link  rel="icon" type="image/png" href="./icon/favicon16.png" sizes="16x16"/>
+    <link  rel="icon" type="image/png" href="./icon/favicon32.png" sizes="32x132"/>
+    <script type="module" src="%PUBLIC_URL%/static/js/bundle.js"></script>
+    <script nomodule src="%PUBLIC_URL%/static/js/legacy-bundle.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!-- <div class="ReactModalPortalManuales"></div> -->
-    <script src='./bundle.js'></script> 
- 
+
 
   </body>
 </html>

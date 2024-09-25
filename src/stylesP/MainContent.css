@@ -1,32 +1,71 @@
-.main-content {
+/* Estilos base */
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'DIN-RegularAlternate';
+  font-size: 18px;
+}
+
+.main-content-wrapper {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin-top: -150px;
-  background-image: url('../Imagenes/Efiwiki.PNG'); /* Ruta de la imagen */
-  background-size: cover; /* Hace que la imagen cubra todo el fondo */
-  background-position: center; /* Centra la imagen en el fondo */
-  background-repeat: no-repeat; /* Evita que la imagen se repita */
+}
+
+
+.main-content {
+  width: 100%;
+  max-width: 800px;
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.main-content-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: none;
+  background-image: inherit;
   background-size: cover;
   background-position: center;
-  color: white;
+  background-repeat: no-repeat;
+  transition: none;
 }
+
+.main-content.bg-loaded::before {
+  opacity: 1;
+}
+
 
 .main-buttons {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-  gap: 50px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
   width: 100%;
   max-width: 600px; /* Puedes ajustar el ancho máximo según necesites */
-  margin-top: 50px;
+  margin: 40px auto 0;
+  justify-items: stretch;
 }
 
 .main-buttons .FQA-button {
   grid-column: 4; /* Posiciona el botón en la primera columna */
-  justify-self: center; /* Centra horizontalmente */
+  justify-self: flex-start; /* Centra horizontalmente */
+  grid-column: 3;
 }
 
 .main-buttons .Comunicados-button {
@@ -35,25 +74,29 @@
 }
 
 .main-buttons .Settings-button {
-  grid-column: 1 / span 2; /* Ocupa ambas columnas para centrarlo */
+  grid-column: 3/ span 1; /* Ocupa ambas columnas para centrarlo */
   justify-self: center; /* Centra horizontalmente */
 }
 
 .main-buttons button {
   background: rgba(255, 255, 255, 0.1);
   color: rgb(149, 218, 178);
+  padding: 20px;
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 20px;
-  width: 130px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
 }
 
 .main-buttons button:hover {
-  transform: scale(1.1);
-  background: rgba(108, 172, 180, 0.3); /* Azul semi-transparente */
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
 }
 
 .main-buttons button:active {
@@ -65,16 +108,28 @@
   margin-bottom: 10px;
 }
 
+@media (max-width: 768px) {
+  .main-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .main-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+
 .social-media {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .social-media a {
-  color: white;
-  font-size: 2rem;
-  margin: 0 15px;
+  color: #333;
+  font-size: 24px;
+  margin: 0 12px;
   transition: transform 0.3s ease;
 }
 
@@ -89,7 +144,7 @@
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border-radius: 4px;
   font-size: 14px;
   white-space: nowrap;
@@ -112,13 +167,41 @@
   border-style: solid;
   border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
 }
-/* Ajustes para pantallas pequeñas */
+
+ /* Preload de la imagen de fondo */
+ .bg-preload {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .main-content {
-    height: unset;
-    padding: 15px; /* Ajusta el padding para mejor visibilidad en pantallas pequeñas */
-    margin-top: 70px; /* Elimina el margen negativo para evitar el recorte del contenido */
+    padding: 30px;
   }
+
+  .main-buttons {
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+
+  .main-buttons button {
+    padding: 12px 18px;
+  }
+
+  .social-media {
+    margin-top: 30px;
+  }
+
+  .social-media a {
+    font-size: 20px;
+    margin: 0 10px;
+  }
+}
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .main-content::before {
+  background-attachment: scroll;
+  }
+
 
   .main-buttons {
     display: flex; /* Cambia a un diseño flexible */

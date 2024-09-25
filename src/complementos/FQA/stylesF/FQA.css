@@ -74,13 +74,14 @@
 .close-modal {
   position: absolute; /* Posición absoluta para situar en el contenedor */
   top: -10px; /* Alinea en la parte superior */
-  right: -15px; /* Alinea a la derecha */
+  right: -14px; /* Alinea a la derecha */
   padding: 4px 8px; /* Espaciado interno */
   cursor: pointer; /* Cambia el cursor a puntero al pasar sobre el botón */
   background-color: #78a5d9; /* Color de fondo */
   color: white; /* Color del texto */
   border: none; /* Sin borde */
-  font-family: 'DIN-RegularAlternate', sans-serif; /* Fuente personalizada */
+  border-radius: 4px;
+  font-family: 'DIN-RegularAlternate'; /* Fuente personalizada */
   font-weight: bold; /* Fuente en negrita */
   font-size: 14px; /* Tamaño de fuente */
   transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
@@ -445,6 +446,7 @@
   transform: scale(0.95);
   animation: scale-up 0.3s forwards;
 }
+
 
 @keyframes scale-up {
   100% {
