@@ -15,7 +15,7 @@
 /* Modal de FAQ */
 .faq-Modal {
   position: relative; /* Posición relativa para elementos internos */
-  max-width: 70%; /* Ancho máximo del 70% */
+  /* max-width: 70%; Ancho máximo del 70% */
   max-height: 70%; /* Altura máxima del 70% */
   width: 8000px; /* Ancho fijo de 500px */
   height: 900px; /* Altura fija de 300px */

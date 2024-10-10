@@ -6,6 +6,7 @@ import { useAuth } from '../src/Login/AuthContext';
 import LogoEfigasAhiSiempre from  './Imagenes/LogoEfigasAhiSiempre.webp';
 import Ayuda from  './complementos/BotonesMenu/Ayuda/Ayuda.js';
 import AcercaDe from './complementos/BotonesMenu/Acerda-de/Acerca-de.js';
+
 const NotificationTray = lazy(() => import('./complementos/BotonesMenu/NotificationTray/NotificationTray.js'));
 
 const NavigationBar = () => {
@@ -44,6 +45,7 @@ const NavigationBar = () => {
           {showMenu && (
             <div className={`menu-overlay ${showMenu ? 'show-menu' : ''}`}>
               <div className="dropdown-content">
+
               <button className="menu-button" onClick={() => setIsAcercaDeOpen(true)}>Acerca de</button>
               <button className="menu-button" onClick={() => setIsAyudaOpen(true)}>Ayuda</button>
               {user && <button className="menu-button-logout-button" onClick={logout}>Cerrar Sesión</button>}
@@ -55,7 +57,7 @@ const NavigationBar = () => {
           <NotificationTray/>
         </Suspense>
        </div>
-      <AcercaDe isOpen={isAcercaDeOpen} onClose={() =>setIsAcercaDeOpen(false)}/>
+     <AcercaDe isOpen={isAcercaDeOpen} onClose={() => setIsAcercaDeOpen(false)}/>
      <Ayuda isOpen={isAyudaOpen} onClose={() => setIsAyudaOpen(false)} />
    </>
   );

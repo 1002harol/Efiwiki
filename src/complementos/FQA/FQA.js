@@ -27,7 +27,7 @@ const FQA = ({ isOpen, onClose }) => {
   const [comments, setComments] = useState([]); // Estado para los comentarios existentes
   const [newComment, setNewComment] = useState(''); 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage , setItemsPerPage] = useState(10);
   const queryClient = useQueryClient();
 
   const { user } = useAuth();
@@ -134,7 +134,7 @@ useEffect(() => {
 
     switch (fieldName) {
       case 'aplicacion':
-        errors.aplicacion = value ? '' : 'Debe seleccionar una aplicación';
+        errors.aplicacion = value ? '' : 'Debes seleccionar una aplicación';
         break;
       case 'descripcion':
       case 'solucion':
@@ -255,7 +255,6 @@ useEffect(() => {
 const addProblemMutation = useMutation(addProblem, {
   onSuccess: () => {
     queryClient.invalidateQueries(['problems', selectedApp]);
-    toast.success('Nuevo problema agregado exitosamente.');
     sendNotification('Un nuevo problema ha sido agregado.');
   },
   onError: (error) => {
@@ -267,7 +266,7 @@ const addProblemMutation = useMutation(addProblem, {
 const updateProblemMutation = useMutation(
   ({ id, problemData }) => {
 
-    // const { id:_, activo:__, ...dataTosend } = problemData; 
+  
     return updateProblem(id, problemData);
     },
     {
@@ -318,8 +317,6 @@ const handleSubmit = async (event) => {
       toast.error('No se pudo identificar el problema a actualizar.');
       return;
     }
-
-    // const{...problemData} = modalData;
     actionParams = { 
       id:currentProblem.id, // Incluir el ID del problema para la actualización
       problemData:modalData
@@ -383,6 +380,28 @@ const handleDelete = async (id) => {
     setModalData({ aplicacion: '', descripcion: '', solucion: '' });
     setFormErrors({});
   };
+
+// Funciones de paginador 
+  // Función para ajustar itemsPerPage basado en el tamaño de la ventana
+  const adjustItemsPerPage = useCallback(() => {
+    const width = window.innerWidth;
+    if (width < 768) {
+      setItemsPerPage(4);
+    } else if (width < 1024) {
+      setItemsPerPage(6);
+    } else {
+      setItemsPerPage(8);
+    }
+  }, []);
+
+  // Efecto para ajustar itemsPerPage al montar el componente y en cambios de tamaño de ventana
+  useEffect(() => {
+    adjustItemsPerPage();
+    window.addEventListener('resize', adjustItemsPerPage);
+    return () => window.removeEventListener('resize', adjustItemsPerPage);
+  }, [adjustItemsPerPage]);
+
+
 
   // const de  paginacion //
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -461,7 +480,7 @@ const handleDelete = async (id) => {
           </table>
         </div>
         )}
-        <nav aria-label="Page navigation">
+          <nav aria-label="Page navigation" className="mt-4">
               <ul className="pagination justify-content-center">
                 {Array.from({ length: Math.ceil(filteredProblems.length / itemsPerPage) }, (_, i) => (
                   <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>

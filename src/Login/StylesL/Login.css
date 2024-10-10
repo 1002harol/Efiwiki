@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap'); /* font para el titulo del login */
+
 .login-container {
   display: flex; /* Usa flexbox para centrar el formulario */
   justify-content: center; /* Centra horizontalmente */
@@ -37,9 +39,9 @@
 /* Estilo del título dentro del formulario */
 .login-form h2 {
   text-align: center; /* Centra el texto del título */
-  color:  #34abc3; /* Color azul del título */
+  color:  #046cc2; /* Color azul del título */
   margin-bottom: 1.5rem; /* Espaciado inferior del título */
-  font-family: 'DIN-BlackAlternate'; /* Peso de fuente negrita */
+  font-family: 'Righteous',sans-serif; /* Peso de fuente negrita */
   font-size: 40px;
   letter-spacing: 1.5px; /* Espaciado entre letras */
   position: relative; /* Posicionamiento relativo para el z-index */
@@ -76,56 +78,78 @@
   box-shadow: 0 0 10px rgba(0, 255, 153, 0.7);
 }
 
-.remember-me-container {
+
+
+
+/* Estilos  de botones adicionales */
+/* Contenedor para los botones adicionales */
+.extra-buttons-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1.5rem;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-/* Estilos del checkbox de "Recordarme" */
-.remember-me-container .form-checkbox {
-  margin-right: 10px;
+
+
+/* Estilos base compartidos para todos los botones */
+.login-form button  {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  
 }
 
-.remember-me-container .text-sm {
-  font-size: 0.875rem;
-}
-.remember-me-container .form-checkbox:focus{
-  border-color: #00ff99;
-  outline: none;
-  box-shadow: 0 0 10px rgba(0, 255, 153, 0.7);
+/* Estilos específicos para el botón de inicio de sesión */
+.login-form button[type="submit"] {
+  background-color: #00aaff;
 
 }
 
-/* Estilo del botón de enviar */
-.login-form button {
-  width: 100%; /* Ancho completo dentro del formulario */
-  padding: 12px; /* Espaciado interno del botón */
-  background-color: #00aaff; /* Fondo azul del botón */
-  color: white; /* Color del texto del botón */
-  border: none; /* Elimina el borde del botón */
-  border-radius: 8px; /* Bordes redondeados del botón */
-  font-size: 1.1rem; /* Tamaño de fuente del botón */
-  cursor: pointer; /* Muestra un cursor de puntero sobre el botón */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves para cambios de color y transformación */
-  font-weight: bold; /* Peso de fuente negrita */
+.login-form button[type="submit"]:hover {
+  background-color: #a1cc5c;
+  /* color: #1b5597; */   /*  Color de la letra  */
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 255, 153, 0.6);
 }
 
-/* Estilo del botón cuando se pasa el mouse sobre él */
-.login-form button:hover {
-  background-color: #a1cc5c; /*Cambia el fondo a verde cuando se pasa el mouse */
-  color:#1b5597;
-  transform: translateY(-3px); /* Eleva el botón ligeramente */
-  box-shadow: 0 10px 20px rgba(0, 255, 153, 0.6); /* Sombra alrededor del botón cuando se pasa el mouse */
+.login-form button[type="submit"]:active {
+  background-color: #0077cc;
+  transform: translateY(1px);
+  box-shadow: none;
+}
+.Register-button {
+  background-color: #007bff; /* Color de fondo azul */
+  color: white; /* Texto en blanco */
+  padding: 10px 20px; /* Espaciado interno */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de fuente */
+  font-weight: 600; /* Grosor de fuente */
+  cursor: pointer !important ; /* Mostrar el cursor como pointer */
+  transition: background-color 0.3s ease; /* Animación en el cambio de color */
 }
 
-/* Estilo del botón cuando se hace clic en él */
-.login-form button:active {
-  background-color: #0077cc; /* Cambia el fondo a azul oscuro cuando se hace clic */
-  transform: translateY(1px); /* Baja el botón ligeramente */
-  box-shadow: none; /* Elimina la sombra cuando se hace clic */
+.Register-button:hover {
+  background-color: #0056b3; /* Cambia a un tono de azul más oscuro en hover */
 }
+
+.Register-button:active {
+  background-color: #004494; /* Color aún más oscuro cuando se hace clic */
+}
+
+.Register-button:focus {
+  outline: none; /* Quita el borde por defecto al hacer foco */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Añadir un borde de enfoque */
+}
+
 
 .error-message {
   color: #ff0000;

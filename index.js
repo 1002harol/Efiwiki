@@ -9,13 +9,21 @@ const compression = require ('compression');
 const helmet = require ('helmet');
 const https =require('https');
 const path = require('path');
-
-
+const {body, validationResult } = require('express-validator');
+const xss  =  require ('xss');
+const rateLimit = require ('express-rate-limit');
+// const csrf = require('csurf');
+const sanitizeHtml = require('sanitize-html');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Middleware
+
+
+// CSRF protection
+// const csrfProtection = csrf({ cookie: true });
+// app.use(csrfProtection);
+
 // Este middleware debe ir después de todas tus rutas definidas
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -29,14 +37,51 @@ app.use(helmet({
       scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "https://api.ejemplo.com"], // Ajusta según tus necesidades
     },
   },
   referrerPolicy: {
     policy: 'strict-origin-when-cross-origin',
   },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  }
 }));
 app.use(compression());
 app.use(express.json());
+
+//limitacion de ruta
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, // límite cada IP a 100 solicitudes por ventana
+  message: 'Demasiadas solicitudes desde esta IP, por favor intente de nuevo después de 15 minutos'
+});
+app.use('/api/', limiter); // Aplica el limitador solo a las rutas API
+
+// Middleware para sanitizar y validar datos
+const sanitizeAndValidateProblemData = [
+  body('aplicacion').trim().escape().notEmpty().withMessage('La aplicación no puede estar vacía'),
+  body('descripcion').trim().escape().notEmpty().withMessage('La descripción no puede estar vacía'),
+  body('solucion').trim().escape().notEmpty().withMessage('La solución no puede estar vacía'),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    req.body = Object.keys(req.body).reduce((acc, key) => {
+      acc[key] = sanitizeHtml(xss(req.body[key]), {
+        allowedTags: ['b', 'i', 'em', 'strong', 'a'],
+        allowedAttributes: {
+          'a': ['href']
+        }
+      });
+      return acc;
+    }, {});
+    next();
+  }
+];
 
 const allowedOrigins = ['http://localhost:8000','http://localhost:3000'];
 app.use(cors({
@@ -149,7 +194,7 @@ function checkEnvVariables() {
 
 // Rutas
 
-app.get('/api/problems', async (req, res) => {
+app.get('/api/problems', async (req, res) => {     //,csrfProtection
   try {
      
     const aplicacion = req.query.aplicacion;
@@ -195,7 +240,7 @@ app.get('/api/problems', async (req, res) => {
   }
 });
 
-app.put('/api/problems/:id', async (req, res) => {
+app.put('/api/problems/:id',sanitizeAndValidateProblemData,async (req, res) => {
   try {
     const { id } = req.params; 
     const { id:_, activo:__, ...problemData } = req.body;
@@ -217,7 +262,7 @@ app.put('/api/problems/:id', async (req, res) => {
   }
 });
 
-app.post('/api/problems', async (req, res) => {
+app.post('/api/problems',sanitizeAndValidateProblemData,async (req, res) => {
   try {
     const response = await axiosInstance.post(process.env.REACT_APP_API_URL, req.body, {
       headers: {
@@ -233,7 +278,7 @@ app.post('/api/problems', async (req, res) => {
   }
 });
 
-app.delete('/api/problems/:id', async (req, res) => {
+app.delete('/api/problems/:id',sanitizeAndValidateProblemData, async (req, res) => {
   try {
     const response = await axiosInstance.delete(`${process.env.REACT_APP_API_URL}/${req.params.id}`, {
       headers: {

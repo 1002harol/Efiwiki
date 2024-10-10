@@ -1,3 +1,30 @@
+/* :root {
+  --bg-color: #FFFFFF;
+  --text-color: #000000;
+  --navbar-bg-color: #F0F0F0;
+  --footer-bg-color: #CCCCCC;
+  --primary-color: #1E3A8A;
+  --secondary-color: #93C5FD;
+  --accent-color: #3B82F6;
+} */
+
+/* body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+} */
+
+/* Añade más selectores para aplicar los colores a elementos específicos */
+/* .navbar {
+  background-color: var(--navbar-bg-color);
+  transition: background-color 0.3s;
+}
+
+.footer {
+  background-color: var(--footer-bg-color);
+} */
+
+
 /* estilos tailwind */
 @tailwind base;
 @tailwind components;

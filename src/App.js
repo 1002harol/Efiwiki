@@ -16,6 +16,10 @@ import PrivateRoute from './PrivateRoute';
 // componentes con lazy loading
 const Login = lazy (() => import('./Login/Login'));
 const ProtectedApp = lazy (() => import ('./ProtectedApp'));
+const Register = lazy (() => import('./Login/register'));
+const ForgotPassword = lazy (()=> import ('./Login/ForgotPassword'));
+
+
 
 const queryClient = new QueryClient();
 // Componente principal de la aplicación
@@ -25,16 +29,16 @@ function App() {
   const closeModal = () => setCurrentModal(null);
   const openModal = (modalType) => setCurrentModal(modalType);
   
-
+  
   return (
-   <QueryClientProvider client={queryClient}>
-    <Router>
+   <Router>
+    <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Suspense fallback={<div>Cargando..</div>}>
         <Routes>
-          <Route
-            path="/login"
-            element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/forgot-password" element={<ForgotPassword/>} />
           <Route
             path="/*"
             element={
@@ -53,9 +57,9 @@ function App() {
         </Routes>
         </Suspense>
       </AuthProvider>
-    </Router>
-   <ReactQueryDevtools initialIsOpen={false}/>
-  </QueryClientProvider>   
+     <ReactQueryDevtools initialIsOpen={false}/>
+   </QueryClientProvider>  
+  </Router> 
   );
 }
 

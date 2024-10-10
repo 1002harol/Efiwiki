@@ -133,7 +133,7 @@
   
   .navigation-bar .title {
     font-size: 1.3rem;
-
+    margin-right: 70px;
     
   }
 }
@@ -151,9 +151,9 @@
   }
 
   .navigation-bar .title {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-top: 30px;
-    margin-left: 150px;
+    margin-left: 70px;
   }
 
   .navigation-bar .menu-container {
@@ -169,6 +169,7 @@
 
   .notification-button {
     margin-top: 28px;
+    margin-right: 80px ;
 
   }
 }
